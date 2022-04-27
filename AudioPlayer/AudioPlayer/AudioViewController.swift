@@ -9,39 +9,60 @@ import UIKit
 
 final class AudioViewController: UIViewController {
     
-    private let queue = QueuePlayer()
+    private let queuePlayer = QueuePlayer()
     
     private let buttonIPhone = UIButton(type: .system)
     private let buttonSamsung = UIButton(type: .system)
     private let playButton = UIButton(type: .system)
     
+    private let crossFade = CrossFade()
+    
     private var urlArray = [URL?]()
     
     fileprivate let url1 = Bundle.main.url(forResource: "audio_one", withExtension: "mp3")
-    fileprivate let url2 = Bundle.main.url(forResource: "au_two", withExtension: "mp3")
+    fileprivate let url2 = Bundle.main.url(forResource: "audio_two", withExtension: "mp3")
+    
+    static var seconds = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
         
+        setupButtonIPhone()
+        setupButtonSamsung()
+        setupCrossFadeValueSlider()
+        setupPlayButton()
+    }
+    
+    private func setupButtonIPhone() {
         buttonIPhone.tag = 1
         buttonIPhone.frame = CGRect(x: 100, y: 100, width: 200, height: 60)
         buttonIPhone.setTitle("рингтон IPhone", for: .normal)
         buttonIPhone.setTitleColor(.systemBlue, for: .normal)
         buttonIPhone.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         self.view.addSubview(buttonIPhone)
-        
+    }
+    
+    private func setupButtonSamsung() {
         buttonSamsung.tag = 2
-        buttonSamsung.frame = CGRect(x: 100, y: 300, width: 200, height: 60)
+        buttonSamsung.frame = CGRect(x: 100, y: 200, width: 200, height: 60)
         buttonSamsung.setTitle("рингтон Android", for: .normal)
         buttonSamsung.setTitleColor(.systemBlue, for: .normal)
         buttonSamsung.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         self.view.addSubview(buttonSamsung)
-        
-        playButton.frame = CGRect(x: 100, y: 500, width: 200, height: 60)
+    }
+    
+    private func setupCrossFadeValueSlider() {
+        CrossFadeValueSlider.slider.addTarget(self, action: #selector(change(_:)), for: UIControl.Event.valueChanged)
+        CrossFadeValueSlider.setupSlider(view: self.view)
+    }
+    
+    private func setupPlayButton() {
+        playButton.frame = CGRect(x: 100, y: 600, width: 200, height: 60)
         playButton.setTitle("Воспроизвести", for: .normal)
         playButton.setTitleColor(.systemBlue, for: .normal)
+        playButton.backgroundColor = UIColor.black
         playButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
         self.view.addSubview(playButton)
     }
@@ -55,23 +76,11 @@ final class AudioViewController: UIViewController {
                 
                 switch sender.tag {
                 case 1, 2:
-                    //audioFilesButtons.append(buttonIPhone)
-                    urlArray.remove(at: urlArray.count - 1) //append(url1)
-                    print(urlArray.count)
-                    //print(audioFilesButtons.count)
+                    urlArray.remove(at: urlArray.count - 1)
                     break
-//                case 2:
-//                    urlArray.remove(at: urlArray.count - 1)  //.append(url2)
-//                    print(urlArray.count)
-//                    //audioFilesButtons.append(buttonAndroid)
-//                    //print(audioFilesButtons.count)
-//                    break
                 default:
                     print("")
                 }
-                //audioFilesButtons.removeAll()
-//                urlArray.removeAll()
-//                print(urlArray.count)
                 
             } else {
                 
@@ -80,11 +89,9 @@ final class AudioViewController: UIViewController {
                 switch sender.tag {
                 case 1:
                     urlArray.append(url1)
-                    print(urlArray.count)
                     break
                 case 2:
                     urlArray.append(url2)
-                    print(urlArray.count)
                     break
                 default:
                     print("")
@@ -95,13 +102,20 @@ final class AudioViewController: UIViewController {
     
     @objc func playButtonAction(sender: AnyObject) {
         
-        guard let url1 = url1 else { return }
-        guard let url2 = url2 else { return }
+//        guard let url1 = url1 else { return }
+//        guard let url2 = url2 else { return }
         
         do {
-            queue.playQueuePlayer(audioArray: [url1, url2])
+            queuePlayer.playQueuePlayer(audioArray: urlArray)
         } catch let error {
-            print("Couldn't load \(url2.lastPathComponent): \(error)")
+            urlArray.forEach {
+                print("Couldn't load \(String(describing: $0?.lastPathComponent)): \(error)")
+            }
         }
+    }
+    
+    @objc func change(_ sender: UISlider) {
+        AudioViewController.seconds = Double(sender.value)
+        print("slider.value = %d", sender.value)
     }
 }

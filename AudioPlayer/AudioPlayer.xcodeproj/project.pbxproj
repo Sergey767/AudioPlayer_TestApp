@@ -15,6 +15,7 @@
 		997A0E662816B1AC00536379 /* audio_one.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 997A0E652816B1AB00536379 /* audio_one.mp3 */; };
 		997A0E682816B20500536379 /* audio_two.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 997A0E672816B20500536379 /* audio_two.mp3 */; };
 		997A0E6A2817DABB00536379 /* CrossFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A0E692817DABB00536379 /* CrossFade.swift */; };
+		997A0E6C2818367700536379 /* CrossFadeValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997A0E6B2818367700536379 /* CrossFadeValueSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		997A0E652816B1AB00536379 /* audio_one.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = audio_one.mp3; path = ../../../../../Downloads/audio_one.mp3; sourceTree = "<group>"; };
 		997A0E672816B20500536379 /* audio_two.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio_two.mp3; sourceTree = "<group>"; };
 		997A0E692817DABB00536379 /* CrossFade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossFade.swift; sourceTree = "<group>"; };
+		997A0E6B2818367700536379 /* CrossFadeValueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossFadeValueSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				990E9964280EF8010014B98A /* AudioViewController.swift */,
 				991A96FE2816515000182CC0 /* QueuePlayer.swift */,
 				997A0E692817DABB00536379 /* CrossFade.swift */,
+				997A0E6B2818367700536379 /* CrossFadeValueSlider.swift */,
 				990E9959280E9FF50014B98A /* Assets.xcassets */,
 				990E995E280E9FF50014B98A /* Info.plist */,
 			);
@@ -157,6 +160,7 @@
 				991A96FF2816515000182CC0 /* QueuePlayer.swift in Sources */,
 				997A0E6A2817DABB00536379 /* CrossFade.swift in Sources */,
 				990E9953280E9FEF0014B98A /* SceneDelegate.swift in Sources */,
+				997A0E6C2818367700536379 /* CrossFadeValueSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

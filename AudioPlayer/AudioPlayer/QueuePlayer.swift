@@ -19,23 +19,26 @@ final class QueuePlayer {
 
     private var token: NSKeyValueObservation?
 
-    private var audios = [URL]()
+    private var audios = [URL?]()
 
     private func addAllAudiosToPlayer() {
         
         for audio in audios {
+            
+            guard let audio = audio else { return }
+
             do {
                 let asset = try AVURLAsset(url: audio)
                 let item = AVPlayerItem(asset: asset)
                 queuePlayer.insert(item, after: queuePlayer.items().last)
-                crossFade.fade(player: queuePlayer, fromVolume: 0.0, toVolume: 1.0, overTime: 8.0)
+                crossFade.fade(player: queuePlayer, fromVolume: 0.0, toVolume: 1.0, overTime: AudioViewController.seconds)
             } catch let error {
                 print("Couldn't load \(audio.lastPathComponent): \(error)")
             }
         }
     }
 
-    func playQueuePlayer(audioArray: [URL]) {
+    func playQueuePlayer(audioArray: [URL?]) {
         
         self.audios = audioArray
         
