@@ -102,9 +102,6 @@ final class AudioViewController: UIViewController {
     
     @objc func playButtonAction(sender: AnyObject) {
         
-//        guard let url1 = url1 else { return }
-//        guard let url2 = url2 else { return }
-        
         do {
             queuePlayer.playQueuePlayer(audioArray: urlArray)
         } catch let error {
